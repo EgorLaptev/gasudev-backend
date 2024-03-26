@@ -14,7 +14,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return new UserCollection(User::all());
     }
@@ -25,12 +25,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = User::create([
+            "username" => $request->username,
             "name" => $request->name,
-            "email" => $request->email,
+            "surname" => $request->surname,
             "password" => Hash::make($request->password)
         ]);
 
         $user->save();
+
+        $user = User::where('username', $request->username)->first();
 
         return new UserResource($user);
     }
