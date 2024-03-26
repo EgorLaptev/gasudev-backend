@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->char('title', length: 100);
-            $table->longText('content');
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->set('name', ['admin', 'moder', 'user']);
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('roles');
     }
 };
