@@ -16,6 +16,7 @@ Route::apiResources([
     'news' => NewsController::class,
 ]);
 
+
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
 });
