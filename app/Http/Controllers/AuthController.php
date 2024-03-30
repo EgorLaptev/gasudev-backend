@@ -23,11 +23,6 @@ class AuthController extends Controller
         $user = User::where('username', $request->username)->where('password', $request->password)->first();
 
         if ($user) {
-            // $user = User::where('username', $request->username)->first();
-            $token = Str::random(80);
-            $user->api_token = $token;
-            $user->save();
-
             return new UserResource($user);
         } else {
             return response([
