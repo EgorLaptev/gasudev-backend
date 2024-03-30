@@ -14,6 +14,7 @@ Route::get('/user', function (Request $request) {
 Route::apiResources([
     'users' => UserController::class,
     'news' => NewsController::class,
+    'team' => NewsController::class,
 ]);
 
 Route::controller(AuthController::class)->group(function () {
