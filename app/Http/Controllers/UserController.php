@@ -24,19 +24,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create([
-            "username" => $request->username,
-            "name" => $request->name,
-            "surname" => $request->surname,
-            "password" => $request->password
-        ]);
+        $already_exists = User::where('username', $request->username)->exists();
+        
+        if (!$already_exists){
+            $user = User::create([
+                "username" => $request->username,
+                "name" => $request->name,
+                "surname" => $request->surname,
+                "password" => $request->password
+            ]);
 
-        $user->save();
+            $user->save();
 
-        $user = User::where('username', $request->username)->first();
+            $user = User::where('username', $request->username)->first();
 
-        return new UserResource($user);
+            return new UserResource($user);
+        } else {
+            return  response()->json(['message' => 'User  already exists'], 409);
+        }
+        
     }
+
 
     /**
      * Display the specified resource.
